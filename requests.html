@@ -67,7 +67,11 @@
           </div>
           <script type="text/javascript">
               $(function () {
-                  $('#datetimepicker1').datetimepicker();
+                  $('#datetimepicker1').datetimepicker(
+                    viewMode: 'years',
+                    format: 'DD/MM/YYYY',
+                    allowInputToggle: true
+                  );
               });
           </script>
         </div>

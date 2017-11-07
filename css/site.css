@@ -3,6 +3,6 @@
     width: 30px;
 }
 
-#description{
-	max-width: 800px;
+textarea {
+	width: 500px;
 }

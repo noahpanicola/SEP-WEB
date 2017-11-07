@@ -68,12 +68,20 @@
                   </div>
               </div>
           </div>
-          <input class="datepicker">
-          <script type="text/javascript">
-            $( document ).ready(function() {
-              $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
-            });
-          </script>
+          <div class="row">
+            <label>Desired Maintenance Date</label>
+            <div class='col-sm-6'>
+              <input class="datepicker">
+              <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+              </span>
+              <script type="text/javascript">
+                $( document ).ready(function() {
+                  $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+                });
+              </script>
+            </div>
+          </div>
         </div>
       </div>
       <div class="form-group">

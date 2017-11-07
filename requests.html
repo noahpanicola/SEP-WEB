@@ -47,47 +47,39 @@
     </nav>
 
     <form>
+
       <div class="form-group">
         <label>User ID</label>
         <input type="id" class="form-control" id="user_id" placeholder="12345">
       </div>
+
       <div>
         <label>Property ID</label>
         <input class="form-control" id="property_id" placeholder="12345">
       </div>
       <div class="container">
+
       <div class="row">
-          <label>Desired Maintenance Time</label>
+          <label>Desired Maintenance Date</label>
           <div class='col-sm-6'>
-              <div class="form-group">
-                  <div class='input-group date' id='datetimepicker1'>
-                      <input type='text' class="form-control" />
-                      <span class="input-group-addon">
-                          <span class="glyphicon glyphicon-calendar"></span>
-                      </span>
-                  </div>
-              </div>
-          </div>
-          <div class="row">
-            <label>Desired Maintenance Date</label>
-            <div class='col-sm-6'>
-              <input class="datepicker">
-              <div class="input-group-addon">
-                <div class="glyphicon glyphicon-calendar"></div>
-              </div>
-              <script type="text/javascript">
-                $( document ).ready(function() {
-                  $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
-                });
-              </script>
+            <input class="datepicker" placeholder="Pick Date"> 
+            <div class="input-group-addon">
+              <div class="glyphicon glyphicon-calendar"></div>
             </div>
+            <script type="text/javascript">
+              $( document ).ready(function() {
+                $(".datepicker").datepicker({ dateFormat: "yy-mm-dd" });
+              });
+            </script>
           </div>
         </div>
       </div>
+
       <div class="form-group">
         <label>Description of Issue</label>
         <textarea class="form-control" id="description" rows="3" placeholder="Garbage disposal not working."></textarea>
       </div>
+
     </form>
     
 

@@ -30,6 +30,18 @@
 
 <body>
 
+	<script>
+
+	$(document).ready(function(){
+
+		var u = new User();
+		u.authenticate(null, function(user){
+			console.log(user);	
+		});
+	});
+
+	</script>
+
 	<nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -66,7 +78,7 @@
 		<fieldset>
 
 		<!-- Form Name -->
-		<legend>Contact Us Today!</legend>
+		<legend>Send a Message</legend>
 
 		<!-- Text input for email-->
 		<div class="form-group">

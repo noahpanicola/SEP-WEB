@@ -89,6 +89,7 @@ textarea {
     display: inline-block;
     margin: 10px 0px;
     background-color: white;
+    min-height: 259px;
 }
 
 #user-properties h3 {

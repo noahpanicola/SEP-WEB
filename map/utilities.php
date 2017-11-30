@@ -85,4 +85,26 @@ function getMyProperties($base_url){
     echo $curl->GET($base_url . "/auth/session/property");
 }
 
+function getUserByEmail ($email, $base_url) {
+    $curl = new Curl;
+    echo $curl->GET($base_url . "/user?email=" . $email);
+}
+
+function sendMessage ($receiver_id, $header, $body, $base_url) {
+    // set post variables
+    $data = array
+    (
+        'receiver_id' => $receiver_id,
+        'header' => $header,
+        'body' => $body
+    );
+    
+    // setup request
+    $curl = new Curl;
+    $curl->setPostArr($data);
+
+    // send the message
+    echo $curl->POST($base_url . "/message");
+}
+
 ?>

@@ -108,6 +108,14 @@ textarea {
     color: rgb(148, 236, 126);
 }
 
+#user-inbox button {
+    float: right;
+    margin-top: -40px;
+    border: solid rgb(148, 236, 126) 1px;
+    color: rgb(148, 236, 126);
+    background-color: white;
+}
+
 .property-item {
     display: inline-block;
     margin: 5px;

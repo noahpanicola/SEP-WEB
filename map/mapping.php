@@ -78,6 +78,20 @@ if(isset($_GET['method'])) {
     */
     if(strtolower($_GET['method']) == "getmyproperties") { getMyProperties($BASE_URL); }
 
+    /*  GET USER BY EMAIL
+
+        METHOD: GET
+        BASE_URL: ?method=getuserbyemail
+    */
+    if(strtolower($_GET['method']) == "getuserbyemail") { getUserByEmail($_GET['email'], $BASE_URL); }
+
+    /*  SEND MESSAGE BY ID
+        
+        METHOD: POST
+        BASE_URL: ?method=sendmessage
+    */
+    if(strtolower($_GET['method']) == "sendmessage") { sendMessage($_POST['receiver_id'], $_POST['header'], $_POST['body'], $BASE_URL); }
+
 } else { echo "Method Not Supplied <br />"; }
 
 ?>

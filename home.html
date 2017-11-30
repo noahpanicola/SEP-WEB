@@ -53,7 +53,9 @@
                     <div id="property-content"></div>
                 </div>
                 <div id="user-inbox">
-                    <h3>My Inbox</h3><hr>
+                    <h3>My Inbox</h3>
+                    <button id="send-message" class="btn btn-success">New Message</button>
+                    <hr>
                     <div>
                         <table id="inbox-sent" class="table">
                             <thead>
@@ -100,7 +102,8 @@ $(document).ready(function(){
 
             //get the user's messages
             var i = new Inbox();
-            i.getSent(function (data) {
+            i.getReceived(function (data) {
+                console.log(data);
                 data.forEach(function (item) {
                     console.log(item);
 
@@ -109,11 +112,17 @@ $(document).ready(function(){
                         '<tr>' +
                             '<td scope="row">' + item.id + '</td>' +
                             '<td>' + item.message.header + '</td>' +
-                            '<td>' + item.receiver.email + '</td>' +
+                            '<td>' + item.sender.email + '</td>' +
                             '<td>' + item.message.time_sent + '</td>' +
                             '<td>' + item.is_opened + '</td>' +
                         '</tr>'
                     );
+                });
+                $("#send-message").click( function () {
+                    var s = new Inbox();
+                    s.send("daviddean@gmail.com", "THIS IS A TEST IN PHP", "TESTING PHP", function (message) {
+                        console.log(message);
+                    });
                 });
             });
 

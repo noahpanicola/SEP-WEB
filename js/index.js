@@ -1,10 +1,6 @@
 var indexApp = angular.module("IndexApp", []);
 indexApp.controller('indexController', function ($scope, $http) {
 
-    var url_string = window.location.href
-    var url = new URL(url_string);
-    var uid = url.searchParams.get("uid");
-
     $http.get('http://localhost:8080/property/uid=' + uid).
         success(function(data, status, headers, config){
             $scope.properties = data;

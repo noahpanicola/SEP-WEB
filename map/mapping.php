@@ -57,6 +57,27 @@ if(isset($_GET['method'])) {
     */
     if(strtolower($_GET['method']) == "logout") { logout($BASE_URL); }
 
+    /*  GET SENT MESSAGES BY SESSION
+
+        METHOD: GET
+        BASE_URL: ?method=getsentmessages
+    */
+    if(strtolower($_GET['method']) == "getsentmessages") { getSentMessages($BASE_URL); }
+
+    /*  GET RECEIVED MESSAGES BY SESSION
+
+        METHOD: GET
+        BASE_URL: ?method=getreceivedmessages
+    */
+    if(strtolower($_GET['method']) == "getreceivedmessages") { getReceivedMessages($BASE_URL); }
+
+    /*  GET PROPERTIES BY SESSION
+
+        METHOD: GET
+        BASE_URL: ?method=getmyproperties
+    */
+    if(strtolower($_GET['method']) == "getmyproperties") { getMyProperties($BASE_URL); }
+
 } else { echo "Method Not Supplied <br />"; }
 
 ?>

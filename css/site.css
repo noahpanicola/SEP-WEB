@@ -6,3 +6,84 @@
 textarea {
 	width: 500px;
 }
+
+/* Login Page */
+
+.body-login {
+    background-image: url("../images/cartoon-world.jpg");
+    font-family: sans-serif;
+}
+
+#login-box {
+    background-color: white;
+    margin-top: 5%;
+    padding: 20px 40px 40px 40px;
+    width: 60%;
+    height: 30%;
+    border: solid 2px lightgray;
+    border-radius: 30px;
+}
+
+#login-box h3 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+#login-box input {
+    width: 80%;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.loader {
+    font-size: 70px;
+    font-weight: lighter;
+    opacity: .8;
+}
+
+/* Home Page */
+
+#home-body {
+    background-image: url("../images/cartoon-world.jpg");
+    font-family: sans-serif;
+}
+
+#user-profile {
+    width: 30%;
+    border: solid cyan 1px;
+    border-radius: 10px;
+    padding: 0px 20px 20px 20px;
+    display: inline-block;
+    margin: 10px 20px 0px 0px;
+    background-color: white;
+    float: left;
+}
+
+#user-properties {
+    width: 60%;
+    border: solid coral 1px;
+    border-radius: 10px;
+    padding: 0px 20px 20px 20px;
+    display: inline-block;
+    margin: 10px 0px;
+    background-color: white;
+}
+
+#user-inbox {
+    width: 100%;
+    border: solid rgb(148, 236, 126) 1px;
+    border-radius: 10px;
+    padding: 0px 20px 20px 20px;
+    background-color: white;
+}
+
+.property-item {
+    display: inline-block;
+    margin: 5px;
+}
+
+.property-item img{
+    height: 60px;
+    width: 60px;
+    float: right;
+}

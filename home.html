@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Property Manager</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body id="home-body">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>                        
+                </button>
+                    <a class="navbar-brand" href="#">Property Manager</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="#">Inbox</a></li>
+                        <li><a href="#">Properties</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                        <a href="#">
+                            <img class="img-circle" id="profile-thumb" src="images/not-found-icon.png" alt="images/not-found-icon.png"/>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid main-content">
+            <div id="user-profile">
+                    <h3>My Profile</h3><hr>
+                    <div>
+                        <div class="user-div" id="user-name"></div>
+                        <div class="user-div" id="user-email"></div>
+                        <div class="user-div" id="user-image"></div>
+                    </div>
+                </div>
+                <div id="user-properties">
+                    <h3>My Properties</h3><hr>
+                    <div id="property-content"></div>
+                </div>
+                <div id="user-inbox">
+                    <h3>My Inbox</h3><hr>
+                    <div>
+                        <table id="inbox-sent" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">To</th>
+                                    <th scope="col">Time Sent</th>
+                                    <th scope="col">Opened</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inbox-table-body"></tbody>
+                        </table>
+                        <div id="inbox-received"></div>
+                    </div>
+                </div>
+        </div>
+</body>
+
+<script>
+$(document).ready(function(){
+
+    //get the user's messages
+    var i = new Inbox();
+    i.getSent(function (data) {
+        data.forEach(function (item) {
+            console.log(item);
+
+            //append the data to the html
+            $("#inbox-table-body").append(
+                '<tr>' +
+                    '<td scope="row">' + item.id + '</td>' +
+                    '<td>' + item.message.header + '</td>' +
+                    '<td>' + item.receiver.email + '</td>' +
+                    '<td>' + item.message.time_sent + '</td>' +
+                    '<td>' + item.is_opened + '</td>' +
+                '</tr>'
+            );
+        });
+    });
+
+    //confirms authentication or redirects the user otherwise
+    var u = new User();
+    u.authenticate(null, function(user){
+
+        // do the user manipulation in this postback function
+        $("#user-name").text(user.first_name + " " + user.last_name);
+        $("#user-email").text(user.email);
+        $("#user-image").text(user.image_url_main);
+
+        var p = new Property();
+        p.getPropertyBySession(function (data) {
+            console.log(data);
+            data.forEach(function(property){
+                $("#property-content").append(
+                    '<div class="property-item">' +
+                        '<div id="property-info" style="display: none">' + 
+                            property.street_address + " " + property.city + ", " + property.state +  " " + property.zip +
+                        '</div>' +
+                        '<img class="img img-circle" src="' + property.image_url_thumbnail + '" alt="" />' +
+                    '</div>'
+                );
+            });
+            setup();
+    });
+
+    });
+
+    $( window ).resize(function() {
+        setup();
+    });
+
+    function setup () {
+        //adjust the width of the user property box
+        var offset = $("#user-inbox").width() - ($("#user-properties").width() + $("#user-profile").width());
+        if(offset > 0){ 
+            $("#user-properties").width($("#user-properties").width() + offset - 65);
+        }
+
+        //fix the height of the boxes
+        $("#user-profile").height($("#user-properties").height());
+        $("#user-profile").offset().top = $("#user-properties").offset().top;
+    }
+
+});
+</script>
+
+</html>

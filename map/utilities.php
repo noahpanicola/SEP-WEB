@@ -18,8 +18,12 @@ function login($email, $pass, $base_url) {
         $curl = new Curl;
         $curl->setPostArr($data);
 
-        // actual response
-        echo $curl->POST($base_url . "/auth/login");
+        // log the user in
+        $curl->POST($base_url . "/auth/login");
+        
+        //check to see if they are logged in and return the response
+        echo $curl->GET($base_url . "/auth/session/user");
+
     } else {
         echo    "Please specify a user and password <br />"
                 . "Example: http://localhost:8888/map/mapping.php?method=login&email=noahpanicola@gmail.com&password=test";
@@ -64,6 +68,21 @@ function logout($base_url) {
     //make a curl request to logout the user stored in the session
     $curl = new Curl;
     echo $curl->GET($base_url . "/auth/logout");
+}
+
+function getSentMessages($base_url) {
+    $curl = new Curl;
+    echo $curl->GET($base_url . "/auth/session/inbox/sent");
+}
+
+function getReceivedMessages($base_url) {
+    $curl = new Curl;
+    echo $curl->GET($base_url . "/auth/session/inbox/received");
+}
+
+function getMyProperties($base_url){
+    $curl = new Curl;
+    echo $curl->GET($base_url . "/auth/session/property");
 }
 
 ?>

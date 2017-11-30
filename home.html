@@ -44,9 +44,8 @@
             <div id="user-profile">
                     <h3>My Profile</h3><hr>
                     <div>
-                        <div class="user-div" id="user-name"></div>
-                        <div class="user-div" id="user-email"></div>
                         <div class="user-div" id="user-image"></div>
+                        <div class="user-div" id="user-name"></div>
                     </div>
                 </div>
                 <div id="user-properties">
@@ -77,33 +76,13 @@
 <script>
 $(document).ready(function(){
 
-    //get the user's messages
-    var i = new Inbox();
-    i.getSent(function (data) {
-        data.forEach(function (item) {
-            console.log(item);
-
-            //append the data to the html
-            $("#inbox-table-body").append(
-                '<tr>' +
-                    '<td scope="row">' + item.id + '</td>' +
-                    '<td>' + item.message.header + '</td>' +
-                    '<td>' + item.receiver.email + '</td>' +
-                    '<td>' + item.message.time_sent + '</td>' +
-                    '<td>' + item.is_opened + '</td>' +
-                '</tr>'
-            );
-        });
-    });
-
     //confirms authentication or redirects the user otherwise
     var u = new User();
     u.authenticate(null, function(user){
 
         // do the user manipulation in this postback function
+        $("#user-image").append('<img class="img img-circle" src="' + user.image_url_main + '" alt="" />');
         $("#user-name").text(user.first_name + " " + user.last_name);
-        $("#user-email").text(user.email);
-        $("#user-image").text(user.image_url_main);
 
         var p = new Property();
         p.getPropertyBySession(function (data) {
@@ -118,8 +97,28 @@ $(document).ready(function(){
                     '</div>'
                 );
             });
+
+            //get the user's messages
+            var i = new Inbox();
+            i.getSent(function (data) {
+                data.forEach(function (item) {
+                    console.log(item);
+
+                    //append the data to the html
+                    $("#inbox-table-body").append(
+                        '<tr>' +
+                            '<td scope="row">' + item.id + '</td>' +
+                            '<td>' + item.message.header + '</td>' +
+                            '<td>' + item.receiver.email + '</td>' +
+                            '<td>' + item.message.time_sent + '</td>' +
+                            '<td>' + item.is_opened + '</td>' +
+                        '</tr>'
+                    );
+                });
+            });
+
             setup();
-    });
+        });
 
     });
 

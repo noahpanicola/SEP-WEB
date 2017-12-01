@@ -119,8 +119,7 @@ $(document).ready(function(){
                     );
                 });
                 $("#send-message").click( function () {
-                    var s = new Inbox();
-                    s.send("daviddean@gmail.com", "THIS IS A TEST IN PHP", "TESTING PHP", function (message) {
+                    i.send("daviddean@gmail.com", "THIS IS A TEST IN PHP", "TESTING PHP", function (message) {
                         console.log(message);
                     });
                 });

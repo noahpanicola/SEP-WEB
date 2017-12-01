@@ -19,7 +19,7 @@ function login($email, $pass, $base_url) {
         $curl->setPostArr($data);
 
         // log the user in
-        $curl->POST($base_url . "/auth/login");
+        $curl->LOGIN($base_url . "/auth/login");
         
         //check to see if they are logged in and return the response
         echo $curl->GET($base_url . "/auth/session/user");
@@ -90,21 +90,26 @@ function getUserByEmail ($email, $base_url) {
     echo $curl->GET($base_url . "/user?email=" . $email);
 }
 
-function sendMessage ($receiver_id, $header, $body, $base_url) {
-    // set post variables
-    $data = array
-    (
-        'receiver_id' => $receiver_id,
-        'header' => $header,
-        'body' => $body
-    );
-    
-    // setup request
-    $curl = new Curl;
-    $curl->setPostArr($data);
+function sendMessage ($remail, $header, $body, $base_url) {
+    if(isset($remail) && isset($header) && isset($body)) {
+        // set post variables
+        $data = array
+        (
+            'receiver_email' => $remail,
+            'header' => $header,
+            'body' => $body
+        );
 
-    // send the message
-    echo $curl->POST($base_url . "/message");
+        //setup request
+        $curl = new Curl;
+        $curl->setPostArr($data);
+
+        // send the message
+        echo $curl->POST($base_url . "/message");
+
+    } else {
+        echo "incorrect parameters";
+    }
 }
 
 ?>

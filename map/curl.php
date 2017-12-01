@@ -28,7 +28,7 @@ class Curl {
         return $output;
     }
 
-    public function POST($url){
+    public function LOGIN($url){
         // create curl resource 
         $ch = curl_init(); 
         
@@ -37,6 +37,8 @@ class Curl {
 
         //add headers to the request
         $headers = array("Content-Type: application/x-www-form-urlencoded");
+
+        //set the headers
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
         // Set to TLS 1.0 (CURL_SSLVERSION_TLSv1_0)
@@ -47,6 +49,42 @@ class Curl {
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($this->postArr));
 
         //create a container for the cookies
+        curl_setopt($ch, CURLOPT_COOKIEJAR, './cookie.txt');
+
+        //return the transfer as a string 
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+
+        // $output contains the output string 
+        $output = curl_exec($ch); 
+        $this->info = curl_getinfo($ch);
+
+        // close curl resource to free up system resources 
+        curl_close($ch);
+
+        //return the response
+        return $output;
+    }
+
+    public function POST ($url) {
+        // create curl resource 
+        $ch = curl_init(); 
+        
+        // set url 
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        //add headers to the request
+        $headers = array('Content-Type: application/json;charset=UTF-8', 'cache-control: no-cache');
+
+        //set the headers
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        
+        //populate post request
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($this->postArr));
+        curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+
+        //set container for the cookies
+        curl_setopt($ch, CURLOPT_COOKIEFILE, './cookie.txt');
         curl_setopt($ch, CURLOPT_COOKIEJAR, './cookie.txt');
 
         //return the transfer as a string 

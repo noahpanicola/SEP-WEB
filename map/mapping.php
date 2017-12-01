@@ -90,7 +90,7 @@ if(isset($_GET['method'])) {
         METHOD: POST
         BASE_URL: ?method=sendmessage
     */
-    if(strtolower($_GET['method']) == "sendmessage") { sendMessage($_POST['receiver_id'], $_POST['header'], $_POST['body'], $BASE_URL); }
+    if(strtolower($_GET['method']) == "sendmessage") { sendMessage($_POST['remail'], $_POST['header'], $_POST['body'], $BASE_URL); }
 
 } else { echo "Method Not Supplied <br />"; }
 

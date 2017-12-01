@@ -106,12 +106,35 @@ var Inbox = function () {
         });
     }
 
-    this.getReceived = function () {
-
+    this.getReceived = function (postback) {
+        $.get({
+            url: "/map/mapping.php?method=getreceivedmessages",
+            dataType: 'json',
+            success: function (data) {
+                postback(data);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
     }
 
-    this.send = function () {
-
+    this.send = function (email, h, b, postback) {
+        $.post({ 
+            url: "/map/mapping.php?method=sendmessage",
+            dataType: 'application/json',
+            data: {
+                body: b,
+                header: h,
+                remail: email
+            },
+            success: function(data) {
+                postback(dataresponseText);
+            },
+            error: function (data) {
+                postback(data.responseText);
+            }
+        });
     }
 
 }

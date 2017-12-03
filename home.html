@@ -111,11 +111,12 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Property Detail Modal -->
         <div class="home-modal" id="property-detail-modal">
-            <div>
-                
+            <div class="property-modal-content container-fluid">
+                <div class="modal-header" id="property-header"></div>
+                <div class="modal-body" id="property-body"></div>
             </div>
         </div>
 </body>
@@ -160,8 +161,9 @@ $(document).ready(function(){
                 //property modal
                 $(".property-item").click(function () {
                     if(property_counter == 0){
-                        $("#property-detail-modal").show();
-                        console.log($(this).attr("street"));
+
+                        //setup the property modal
+                        setupPropertyDetailModal($(this));
                         property_counter ++;
                     }
                 });
@@ -232,13 +234,40 @@ $(document).ready(function(){
         setup();
     });
 
-    function clearMessageModal(){
+    function clearMessageModal() {
         $("#msg-modal").hide();
         $("#to-input").val('');
         $("#subject-input").val('');
         $("#body-input").val('');
         $("#send-msg-btn").children().hide();
         $("#send-msg-btn span").show();
+    }
+
+    function setupPropertyDetailModal(property) {
+
+        //create the property modal header
+        $("#property-header").append(
+            '<h3 style="display: inline-block;">' + property.attr('street') + '</h3>' +
+            '<span class="glyphicon glyphicon-remove close"></span>'
+        );
+
+        //create the property modal body
+        $("#property-body").append(
+            '<img src="' +  property.attr('property_image') + '"/>'
+        );
+
+        $(".close").click(function() {
+            clearPropertyDetailModal();
+        });
+
+        $("#property-detail-modal").show();
+    }
+
+    function clearPropertyDetailModal() {
+        $("#property-detail-modal").hide();
+        $("#property-body").children().remove();
+        $("#property-header").children().remove();
+        property_counter = 0;
     }
 
     function setup () {

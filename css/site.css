@@ -195,3 +195,17 @@ textarea {
     border: solid coral 1px;
     cursor: pointer;
 }
+
+.property-modal-content {
+    width: 80%;
+    min-width: 400px;
+    background-color: white;
+    border: solid coral 1px;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.close {
+    float: right;
+}

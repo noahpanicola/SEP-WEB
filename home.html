@@ -40,6 +40,14 @@
                 </div>
             </div>
         </nav>
+        <div class="loading container-fluid">
+            <div class="container-fluid" style="width: 150px;">
+                <h3>Loading...</h3>
+                <div>
+                    <i class="fa fa-circle-o-notch fa-spin loader container-fluid"></i>
+                </div>
+            </div>
+        </div>
         <div class="container-fluid main-content">
             <div id="user-profile">
                     <h3>My Profile</h3><hr>
@@ -54,7 +62,7 @@
                 </div>
                 <div id="user-inbox">
                     <h3>My Inbox</h3>
-                    <button id="send-message" class="btn btn-success">New Message</button>
+                    <button id="msg-modal-btn" class="btn btn-success">New Message</button>
                     <hr>
                     <div>
                         <table id="inbox-sent" class="table">
@@ -62,7 +70,7 @@
                                 <tr>
                                     <th scope="col"></th>
                                     <th scope="col">Subject</th>
-                                    <th scope="col">To</th>
+                                    <th scope="col">From</th>
                                     <th scope="col">Time Sent</th>
                                     <th scope="col">Opened</th>
                                 </tr>
@@ -73,10 +81,43 @@
                     </div>
                 </div>
         </div>
+        <!-- Message Modal -->
+        <div class="msg-modal">
+            <div class="msg-modal-content container-fluid">
+                <div class="modal-header">
+                    <h3>Send a Message</h3>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div>
+                            <input type="text" id="to-input">
+                            <label><b>To</b></label>
+                        </div>
+                        <div>
+                            <input type="text" id="subject-input">
+                            <label><b>Subject</b></label>
+                        </div>
+                        <div>
+                            <textarea id="body-input"></textarea>
+                        </div>
+                        <button id="send-msg-btn" class="btn btn-success">
+                            <span class="glyphicon glyphicon-send"></span> Send
+                        </button>
+                        <button class="btn btn-danger cancel-btn">
+                                <span class="glyphicon glyphicon-remove-circle"></span> Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 
 <script>
 $(document).ready(function(){
+
+    //hide the main content until it's done loading
+    $(".main-content").hide();
+    $(".loading").show();
 
     //confirms authentication or redirects the user otherwise
     var u = new User();
@@ -86,26 +127,49 @@ $(document).ready(function(){
         $("#user-image").append('<img class="img img-circle" src="' + user.image_url_main + '" alt="" />');
         $("#user-name").text(user.first_name + " " + user.last_name);
 
+//----- PROPERTY SECTION -----
+
         var p = new Property();
         p.getPropertyBySession(function (data) {
-            console.log(data);
+
+            //get the properties by session
             data.forEach(function(property){
                 $("#property-content").append(
-                    '<div class="property-item">' +
-                        '<div id="property-info" style="display: none">' + 
-                            property.street_address + " " + property.city + ", " + property.state +  " " + property.zip +
-                        '</div>' +
+                    '<div class="property-item" ' + 
+                        'property_id="' + property.id + '" ' +
+                        'property_image="' + property.image_url_main + '" ' +
+                        'street="' + property.street_address + '" ' +
+                        'city="' + property.city + '" ' +
+                        'state="' + property.state + '" ' +
+                        'zip="' + property.zip + '" >' +
                         '<img class="img img-circle" src="' + property.image_url_thumbnail + '" alt="" />' +
                     '</div>'
                 );
+
+                //property modal
+                $(".property-item").click(function () {
+                    console.log($(this).attr("street"));
+                    $(".msg-modal").show();
+                });
+
             });
+
+//----- INBOX SECTION -----
 
             //get the user's messages
             var i = new Inbox();
             i.getReceived(function (data) {
                 console.log(data);
                 data.forEach(function (item) {
+
+                    //debug
                     console.log(item);
+
+                    //set unopened glyph
+                    var glyph = '<span class="glyphicon glyphicon-unchecked"></span>';
+                    if(item.is_opened == true) {
+                        glyph = '<span class="glyphicon glyphicon-check"></span>';
+                    }
 
                     //append the data to the html
                     $("#inbox-table-body").append(
@@ -114,25 +178,54 @@ $(document).ready(function(){
                             '<td>' + item.message.header + '</td>' +
                             '<td>' + item.sender.email + '</td>' +
                             '<td>' + item.message.time_sent + '</td>' +
-                            '<td>' + item.is_opened + '</td>' +
+                            '<td>' + glyph + '</td>' +
                         '</tr>'
                     );
                 });
-                $("#send-message").click( function () {
-                    i.send("daviddean@gmail.com", "THIS IS A TEST IN PHP", "TESTING PHP", function (message) {
+
+                $(".main-content").show();
+                setup();
+                $(".loading").hide();
+
+                //send a message to the modal
+                $("#send-msg-btn").click(function () {
+                    i.send($("#to-input").val(), $("#subject-input").val(), $("#body-input").val(), function (message) {
                         console.log(message);
+                        clearMessageModal();
                     });
+                    $(this).children().hide();
+                    $(this).append('<i class="fa fa-circle-o-notch fa-spin container-fluid"></i>');
+                });
+
+                //open the message modal
+                $("#msg-modal-btn").click(function () {
+                    $(".msg-modal").show();
+                });
+
+                //open the message modal
+                $(".cancel-btn").click(function () {
+                    $(".msg-modal").hide();
+                    clearMessageModal();
                 });
             });
-
-            setup();
         });
 
     });
 
+//----- WINDOW SETUP
+
     $( window ).resize(function() {
         setup();
     });
+
+    function clearMessageModal(){
+        $(".msg-modal").hide();
+        $("#to-input").val('');
+        $("#subject-input").val('');
+        $("#body-input").val('');
+        $("#send-msg-btn").children().hide();
+        $("#send-msg-btn span").show();
+    }
 
     function setup () {
         //adjust the width of the user property box

@@ -152,6 +152,25 @@ var Property = function () {
                 console.log(data);
             }
         });
+
+        this.createProperty = function (street, city, state, zip, postback) {
+            $.post({ 
+                url: "/map/mapping.php?method=createproperty",
+                dataType: 'application/json',
+                data: {
+                    street: street,
+                    city: city,
+                    state: state,
+                    zip: zip
+                },
+                success: function(data) {
+                    postback(dataresponseText);
+                },
+                error: function (data) {
+                    postback(data.responseText);
+                }
+            });
+        }
     }
     
 }

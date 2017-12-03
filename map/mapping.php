@@ -92,6 +92,13 @@ if(isset($_GET['method'])) {
     */
     if(strtolower($_GET['method']) == "sendmessage") { sendMessage($_POST['remail'], $_POST['header'], $_POST['body'], $BASE_URL); }
 
+    /*  CREATE PROPERTY
+
+        METHOD: POST
+        BASE_URL: ?method=createproperty
+    */
+    if(strtolower($_GET['method']) == "createproperty") { createProperty($_POST['street'], $_POST['city'], $_POST['state'], $_POST['zip'], $BASE_URL); }
+
 } else { echo "Method Not Supplied <br />"; }
 
 ?>

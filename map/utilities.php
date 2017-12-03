@@ -112,4 +112,27 @@ function sendMessage ($remail, $header, $body, $base_url) {
     }
 }
 
+function createProperty ($street, $city, $state, $zip, $base_url) {
+    if(isset($street) && isset($city) && isset($state) && isset($zip)) {
+
+        $data = array
+        (
+            'street_address' => $street,
+            'city' => $city,
+            'state' => $state,
+            'zip' => $zip
+        );
+
+        //setup request
+        $curl = new Curl;
+        $curl->setPostArr($data);
+
+        // send the message
+        echo $curl->POST($base_url . "/property");
+
+    } else {
+        echo "incorrect parameters";
+    }
+}
+
 ?>

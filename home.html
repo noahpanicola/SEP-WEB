@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div id="user-properties">
-                    <span id="add-property-btn" class="glyphicon glyphicon-plus"></span>
+                    <span id="add-property-span" class="glyphicon glyphicon-plus"></span>
                     <h3>My Properties</h3><hr>
                     <div id="property-content"></div>
                 </div>
@@ -123,10 +123,37 @@
 
         <!-- Add Property Modal -->
         <div class="home-modal" id="add-property-modal">
-                <div class="add-property-modal-content container-fluid">
-                    <div class="modal-header" id="add-property-header"></div>
-                    <div class="modal-body" id="add-property-body"></div>
+            <div class="add-property-modal-content container-fluid">
+                <div class="modal-header" id="add-property-header">
+                    <h3>Add Property</h3>
                 </div>
+                <div class="modal-body" id="add-property-body">
+                    <div class="form-group">
+                        <div>
+                            <input type="text" id="street-input">
+                            <label><b>Street</b></label>
+                        </div>
+                        <div>
+                            <input type="text" id="city-input">
+                            <label><b>City</b></label>
+                        </div>
+                        <div>
+                            <input type="text" id="state-input">
+                            <label><b>State</b></label>
+                        </div>
+                        <div>
+                            <input type="text" id="zip-input">
+                            <label><b>Zip Code</b></label>
+                        </div>
+                        <button id="add-property-btn" class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus"></span> Add Property
+                        </button>
+                        <button class="btn btn-danger cancel-add-property">
+                                <span class="glyphicon glyphicon-remove-circle"></span> Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
 </body>
 
@@ -166,17 +193,39 @@ $(document).ready(function(){
                         '<img class="img img-circle" src="' + property.image_url_thumbnail + '" alt="" />' +
                     '</div>'
                 );
+            });
 
-                //property modal
-                $(".property-item").click(function () {
-                    if(property_counter == 0){
+            //property detail modal
+            $(".property-item").click(function () {
+                if(property_counter == 0){
 
-                        //setup the property modal
-                        setupPropertyDetailModal($(this));
-                        property_counter ++;
+                    //setup the property modal
+                    setupPropertyDetailModal($(this));
+                    property_counter ++;
+                }
+            });
+
+            //add property modal
+            $("#add-property-span").click(function () {
+                $("#add-property-modal").show();
+            });
+
+            //function called when adding property
+            $("#add-property-btn").click(function () {
+                p.createProperty($("#street-input").val(), 
+                                    $("#city-input").val(), 
+                                    $("#state-input").val(), 
+                                    $("#zip-input").val(), 
+                    function (data) {
+                        console.log(data);
                     }
-                });
+            );
+                console.log($("#street-input").val());
+            });
 
+            //close add property modal
+            $(".cancel-add-property").click(function () {
+                $("#add-property-modal").hide();
             });
 
 //----- INBOX SECTION -----
@@ -198,7 +247,12 @@ $(document).ready(function(){
 
                     //append the data to the html
                     $("#inbox-table-body").append(
-                        '<tr>' +
+                        '<tr ' +
+                        'message-id="' + item.id + '" ' +
+                        'from-email="' + item.sender.email + '" ' +
+                        'message-header="' + item.message.header + '" ' +
+                        'message-body="' + item.message.body + '" ' +
+                        'message-time-sent="' + item.message.time_sent + '">' +
                             '<td scope="row">' + item.id + '</td>' +
                             '<td>' + item.message.header + '</td>' +
                             '<td>' + item.sender.email + '</td>' +

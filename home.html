@@ -81,8 +81,9 @@
                     </div>
                 </div>
         </div>
+
         <!-- Message Modal -->
-        <div class="msg-modal">
+        <div id="msg-modal" class="home-modal">
             <div class="msg-modal-content container-fluid">
                 <div class="modal-header">
                     <h3>Send a Message</h3>
@@ -110,10 +111,20 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Property Detail Modal -->
+        <div class="home-modal" id="property-detail-modal">
+            <div>
+                
+            </div>
+        </div>
 </body>
 
 <script>
 $(document).ready(function(){
+
+    //debug multiple class click
+    var property_counter = 0;
 
     //hide the main content until it's done loading
     $(".main-content").hide();
@@ -148,8 +159,11 @@ $(document).ready(function(){
 
                 //property modal
                 $(".property-item").click(function () {
-                    console.log($(this).attr("street"));
-                    $(".msg-modal").show();
+                    if(property_counter == 0){
+                        $("#property-detail-modal").show();
+                        console.log($(this).attr("street"));
+                        property_counter ++;
+                    }
                 });
 
             });
@@ -199,12 +213,12 @@ $(document).ready(function(){
 
                 //open the message modal
                 $("#msg-modal-btn").click(function () {
-                    $(".msg-modal").show();
+                    $("#msg-modal").show();
                 });
 
                 //open the message modal
                 $(".cancel-btn").click(function () {
-                    $(".msg-modal").hide();
+                    $("#msg-modal").hide();
                     clearMessageModal();
                 });
             });
@@ -219,7 +233,7 @@ $(document).ready(function(){
     });
 
     function clearMessageModal(){
-        $(".msg-modal").hide();
+        $("#msg-modal").hide();
         $("#to-input").val('');
         $("#subject-input").val('');
         $("#body-input").val('');

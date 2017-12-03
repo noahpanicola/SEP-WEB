@@ -57,6 +57,7 @@
                     </div>
                 </div>
                 <div id="user-properties">
+                    <span id="add-property-btn" class="glyphicon glyphicon-plus"></span>
                     <h3>My Properties</h3><hr>
                     <div id="property-content"></div>
                 </div>
@@ -118,6 +119,14 @@
                 <div class="modal-header" id="property-header"></div>
                 <div class="modal-body" id="property-body"></div>
             </div>
+        </div>
+
+        <!-- Add Property Modal -->
+        <div class="home-modal" id="add-property-modal">
+                <div class="add-property-modal-content container-fluid">
+                    <div class="modal-header" id="add-property-header"></div>
+                    <div class="modal-body" id="add-property-body"></div>
+                </div>
         </div>
 </body>
 
@@ -245,6 +254,11 @@ $(document).ready(function(){
 
     function setupPropertyDetailModal(property) {
 
+        var formattedAddress = property.attr('street') + ',' + 
+                                    property.attr('city') + ',' + 
+                                    property.attr('state') + ',' + 
+                                    property.attr('zip');
+
         //create the property modal header
         $("#property-header").append(
             '<h3 style="display: inline-block;">' + property.attr('street') + '</h3>' +
@@ -253,8 +267,28 @@ $(document).ready(function(){
 
         //create the property modal body
         $("#property-body").append(
-            '<img src="' +  property.attr('property_image') + '"/>'
+            '<iframe class="iframe-map"' +
+                'width="600" ' +
+                'height="450" ' +
+                'frameborder="0" style="border:0" ' +
+                'src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB3d2h490lrWSPqG4SgwA5fQvqrRAPO6fc' +
+                '&q=' +  formattedAddress + '" allowfullscreen>' +
+            '</iframe>' +
+            '<div>' +
+                '<div class="property-detail-info">' + 
+                    '<div>' + property.attr('street') + '</div>' +
+                    '<div>' + property.attr('city') +  ', ' + property.attr('state') + '</div>' +
+                    '<div>' + property.attr('zip') + '</div>' + 
+                '</div>' +
+                '<img class="property-detail-image" src="' +  property.attr('property_image') + '" />' +
+            '</div>' +
+            '<div>' +
+                '<button id="inv-btn" class="btn btn-default">Invite Tenants</button>' +
+                '<button id="remove-property-btn" class="btn btn-danger">Remove Property</button>' +
+            '</div>'
         );
+
+        console.log(formattedAddress);
 
         $(".close").click(function() {
             clearPropertyDetailModal();

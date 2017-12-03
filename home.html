@@ -218,9 +218,10 @@ $(document).ready(function(){
                                     $("#zip-input").val(), 
                     function (data) {
                         console.log(data);
+                        $("#add-property-modal").hide();
+                        window.location.reload();
                     }
-            );
-                console.log($("#street-input").val());
+                );
             });
 
             //close add property modal

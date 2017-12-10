@@ -158,6 +158,16 @@
                 </div>
             </div>
         </div>
+        <!-- Individual Message Modal -->
+        <div class="home-modal" id="indiv-msg-modal">
+            <div class="msg-modal-content container-fluid">
+                <div class="modal-header" id="msg-header"></div>
+                <div class="modal-body" id="msg-body">
+                <!--<button class="btn btn-danger close-btn">
+                    <span class="glyphicon glyphicon-remove-circle"></span> Close
+                </button>-->
+            </div>
+        </div>
 </body>
 
 <script>
@@ -234,6 +244,7 @@ $(document).ready(function(){
 
             //display the loaded content
             $(".main-content").show();
+            $(".btn-logout").show();
             setup();
 
             //show the user inbox loader
@@ -261,7 +272,7 @@ $(document).ready(function(){
 
                     //append the data to the html
                     $("#inbox-table-body").append(
-                        '<tr ' +
+                        '<tr class="msg-row" ' +
                         'message-id="' + item.id + '" ' +
                         'from-email="' + item.sender.email + '" ' +
                         'message-header="' + item.message.header + '" ' +
@@ -279,6 +290,11 @@ $(document).ready(function(){
                 //this is where inbox show should go
                 $("#user-inbox").children().show();
                 $("#inbox-loader").hide();
+
+                //open individual message modal
+                $(".msg-row").click(function () {
+                    setupIndividualMessageModal($(this));
+                });
 
                 //send a message to the modal
                 $("#send-msg-btn").click(function () {
@@ -319,6 +335,44 @@ $(document).ready(function(){
         setup();
     });
 
+    function clearIndividualMessageModal() {
+        $("#indiv-msg-modal").hide();
+        $("#msg-header").children().remove();
+        $("#msg-body").children().remove();
+    }
+
+    function setupIndividualMessageModal(message) {
+
+        var om = new Inbox();
+        om.open(message.attr('message-id'), function(data) {
+            console.log(data);
+            message.children("span").attr("class", "glyphicon glyphicon-check");
+        });
+
+        //create message header
+        $("#msg-header").append(
+            '<span id="msg-detail-close" class="glyphicon glyphicon-remove close"></span>' +
+            '<h3 style="display: inline-block;">' + message.attr('message-header') + '</h3> <br />' +
+            '<h5 style="display: inline-block;">From: ' + message.attr('from-email') + '</h5>'
+        );
+
+        //create indiv message body
+        $("#msg-body").append(
+            '<div id="msg-body">' +
+                '<p>' + message.attr('message-body') + '</p>' +
+            '</div>'
+        );
+
+        //close individual message modal
+        $("#msg-detail-close").click(function () {
+            console.log("close modal");
+            clearIndividualMessageModal();
+        });
+
+        //show the modal
+        $("#indiv-msg-modal").show();
+    }
+
     function clearMessageModal() {
         $("#msg-modal").hide();
         $("#to-input").val('');
@@ -338,7 +392,7 @@ $(document).ready(function(){
         //create the property modal header
         $("#property-header").append(
             '<h3 style="display: inline-block;">' + property.attr('street') + '</h3>' +
-            '<span class="glyphicon glyphicon-remove close"></span>'
+            '<span id="prop-close" class="glyphicon glyphicon-remove close"></span>'
         );
 
         //create the property modal body
@@ -366,7 +420,7 @@ $(document).ready(function(){
 
         console.log(formattedAddress);
 
-        $(".close").click(function() {
+        $("#prop-close").click(function() {
             clearPropertyDetailModal();
         });
 

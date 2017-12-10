@@ -276,3 +276,13 @@ textarea {
     color: rgb(148, 236, 126);
     font-size: 40px;
 }
+
+#btn-logout {
+    font-size: 15px;
+    font-weight: bold;
+    border-left: solid rgb(240, 73, 73) 1px;
+}
+
+#btn-logout a {
+    color: rgb(240, 73, 73);
+}

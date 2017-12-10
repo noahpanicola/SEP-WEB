@@ -99,6 +99,13 @@ if(isset($_GET['method'])) {
     */
     if(strtolower($_GET['method']) == "createproperty") { createProperty($_POST['street'], $_POST['city'], $_POST['state'], $_POST['zip'], $BASE_URL); }
 
+    /*  MARK EMAIL AS OPENED
+        
+        METHOD: GET
+        BASE_URL: ?method=openemail
+    */
+    if(strtolower($_GET['method']) == "openemail") { openEmail($_GET['mid'], $BASE_URL); }
+
 } else { echo "Method Not Supplied <br />"; }
 
 ?>

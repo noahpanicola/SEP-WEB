@@ -135,4 +135,9 @@ function createProperty ($street, $city, $state, $zip, $base_url) {
     }
 }
 
+function openEmail($msg_id, $base_url){
+    $curl = new Curl;
+    echo $curl->GET($base_url . "/usermessage/open/" . $msg_id);
+}
+
 ?>

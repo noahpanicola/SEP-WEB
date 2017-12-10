@@ -92,6 +92,19 @@ var User = function () {
 
 var Inbox = function () {
 
+    this.open = function(msg_id, postback) {
+        $.get({
+            url: "/map/mapping.php?method=openemail&mid=" + msg_id,
+            dataType: 'json',
+            success: function (data) {
+                postback(data);
+            },
+            error: function (data) {
+                console.log("error");
+            }
+        });
+    }
+
     this.getSent = function (postback) {
         $.get({
             url: "/map/mapping.php?method=getsentmessages",

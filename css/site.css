@@ -286,3 +286,9 @@ textarea {
 #btn-logout a {
     color: rgb(240, 73, 73);
 }
+
+#house-logo {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+}

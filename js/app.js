@@ -75,16 +75,15 @@ var User = function () {
             return user;
     }
 
-    this.logout = function () {
+    this.logout = function (postback) {
         $.get({
             url: "/map/mapping.php?method=logout",
             dataType: 'json',
             success: function (data) {
-                console.log(data.email + " has been logged out.")
-                console.log(data);
+                postback(data);
             },
             error: function (data) {
-                console.log(data);
+                console.log("error");
             }
         });
     }

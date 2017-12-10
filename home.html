@@ -25,15 +25,12 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Inbox</a></li>
-                        <li><a href="#">Properties</a></li>
+                        <!-- <li><a href="#">Home</a></li> -->
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
                         <a href="#">
-                            <img class="img-circle" id="profile-thumb" src="images/not-found-icon.png" alt="images/not-found-icon.png"/>
+                            <li id="btn-logout" ><a href="#">Logout</a></li>
                             </a>
                         </li>
                     </ul>
@@ -61,7 +58,13 @@
                     <h3>My Properties</h3><hr>
                     <div id="property-content"></div>
                 </div>
-                <div id="user-inbox">
+                <div id="user-inbox" class="container-fluid">
+                    <div id="inbox-loader">
+                        <h3>Loading Inbox...</h3>
+                        <div>
+                            <i class="fa fa-circle-o-notch fa-spin container-fluid"></i>
+                        </div>
+                    </div>
                     <h3>My Inbox</h3>
                     <button id="msg-modal-btn" class="btn btn-success">New Message</button>
                     <hr>
@@ -229,6 +232,16 @@ $(document).ready(function(){
                 $("#add-property-modal").hide();
             });
 
+            //display the loaded content
+            $(".main-content").show();
+            setup();
+
+            //show the user inbox loader
+            $("#user-inbox").children().hide();
+            $("#inbox-loader").show();
+
+            $(".loading").hide();
+
 //----- INBOX SECTION -----
 
             //get the user's messages
@@ -263,9 +276,9 @@ $(document).ready(function(){
                     );
                 });
 
-                $(".main-content").show();
-                setup();
-                $(".loading").hide();
+                //this is where inbox show should go
+                $("#user-inbox").children().show();
+                $("#inbox-loader").hide();
 
                 //send a message to the modal
                 $("#send-msg-btn").click(function () {
@@ -290,6 +303,14 @@ $(document).ready(function(){
             });
         });
 
+    });
+
+    //add a user logout option
+    $("#btn-logout").click(function() {
+            u.logout(function (data) {
+                console.log(data);
+                window.location.href = "login.html";
+            });
     });
 
 //----- WINDOW SETUP
@@ -336,11 +357,11 @@ $(document).ready(function(){
                     '<div>' + property.attr('zip') + '</div>' + 
                 '</div>' +
                 '<img class="property-detail-image" src="' +  property.attr('property_image') + '" />' +
-            '</div>' +
+            '</div>' /* + 
             '<div>' +
                 '<button id="inv-btn" class="btn btn-default">Invite Tenants</button>' +
                 '<button id="remove-property-btn" class="btn btn-danger">Remove Property</button>' +
-            '</div>'
+            '</div>' */
         );
 
         console.log(formattedAddress);

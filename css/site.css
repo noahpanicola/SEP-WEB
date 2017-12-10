@@ -267,3 +267,12 @@ textarea {
 .cancel-add-property {
     float: right;
 }
+
+#inbox-loader {
+    width: 80%;
+}
+
+#inbox-loader i {
+    color: rgb(148, 236, 126);
+    font-size: 40px;
+}

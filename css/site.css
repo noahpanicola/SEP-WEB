@@ -291,4 +291,6 @@ textarea {
     width: 30px;
     height: 30px;
     display: inline-block;
+    margin-top: -4px;
+    margin-right: 4px;
 }

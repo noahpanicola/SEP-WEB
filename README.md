@@ -1,6 +1,8 @@
 # SEP-WEB
 The front end web aspect of the CS-4320 final Project. It is written in html and angularjs. It uses our Java web service as the backend.
 
+## Testing
+  Front end html/css and interactions with server can be handled with WAMPP/XAMPP by Apache
 
 ## Licenses
 * [Apache Version 2.0 License Aggreement](https://www.apache.org/licenses/LICENSE-2.0)

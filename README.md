@@ -1,3 +1,6 @@
+# Property Bro's
+We wanted to build a web service to make the life of tenants, landlords, and property owners much more efficient and easy, bridging them all together in one concise application. Tenants can add their property(s) to their profile. They can also submit maintenance requests and message their landlord or other tenants with the click of a button. We noticed that there's no universal software for linking tenants to landlords, and we believe our Property Bro's web app is the perfect solution
+
 # SEP-WEB
 The front end web aspect of the CS-4320 final Project. It is written in html and angularjs. It uses our Java web service as the backend.
 

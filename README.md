@@ -3,11 +3,16 @@ Created by: Noah Panicola, David Dean, Taylor Ratliff. The documentation for the
 
 We wanted to build a web service to make the life of tenants, landlords, and property owners much more efficient and easy, bridging them all together in one concise application. Tenants can add their property(s) to their profile. They can also submit maintenance requests and message their landlord or other tenants with the click of a button. We noticed that there's no universal software for linking tenants to landlords, and we believe our Property Bro's web app is the perfect solution
 
+## Accessing the site
+-The URL for our site is http://54.191.3.254/login.html
+-Professors email is musserda@missouri.edu, password is pass
+-Enjoy!
+
 # SEP-WEB
 The front end web aspect of the CS-4320 final Project. It is written in html and angularjs. It uses our Java Spring API to manage the backend and our MySQL database
 
 ## Testing
-  Front end html/css and interactions with server can be handled with WAMPP/XAMPP by Apache
+Front end html/css and interactions with server can be handled with WAMPP/XAMPP by Apache
 
 ## How it works
 As it was mentioned earlier, the frontend was written using AngularJS and HTML. The cookies are being stored through various PHP scripts inside the map folder. The user authentication is processed through our Spring Security API, which authenitcates the user everytime a page was loaded. The bulk of our frontend is done in the home.html file. This file sets up the modals for each indiviudal users Profile, Properties, and Inbox

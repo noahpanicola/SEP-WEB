@@ -7,6 +7,8 @@ We wanted to build a web service to make the life of tenants, landlords, and pro
 
 ## Accessing the site
 -The URL for our site is http://54.191.3.254/login.html
+-The documentation for this site is located at https://drive.google.com/open?id=0B-BoecMwDzOIaUNjeXhwazlzMmc
+-The Trello Board (Kanban Board) is available at https://trello.com/b/5q2sKDTH/tasks
 
 -Professors email is musserda@missouri.edu, password is pass
 

@@ -1,16 +1,16 @@
 # Property Bros
 Created by: Noah Panicola, David Dean, Taylor Ratliff. The documentation for the API, along with its source code, can be found here: https://github.com/noahpanicola/SEP-API
 
+-The documentation for this site is located at https://drive.google.com/open?id=0B-BoecMwDzOIaUNjeXhwazlzMmc
+
+-The Trello Board (Kanban Board) is available at https://trello.com/b/5q2sKDTH/tasks
+
 If you would like to run the web app locally, you have to clone both this repository, along with the SEP-API repository, and put them in the same directory
 
 We wanted to build a web service to make the life of tenants, landlords, and property owners much more efficient and easy, bridging them all together in one concise application. Tenants can add their property(s) to their profile. They can also submit maintenance requests and message their landlord or other tenants with the click of a button. We noticed that there's no universal software for linking tenants to landlords, and we believe our Property Bro's web app is the perfect solution
 
 ## Accessing the site
 -The URL for our site is http://54.191.3.254/login.html
-
--The documentation for this site is located at https://drive.google.com/open?id=0B-BoecMwDzOIaUNjeXhwazlzMmc
-
--The Trello Board (Kanban Board) is available at https://trello.com/b/5q2sKDTH/tasks
 
 -Professors email is musserda@missouri.edu, password is pass
 
